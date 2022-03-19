@@ -1,9 +1,19 @@
-# create a new S3 bucket 
+AWSTemplateFormatVersion: '2010-09-09'
+
+Description: Using GitHub Actions to deploy CloudFormation stacks Demo
+
+Parameters:
+  BucketName:
+    Description: Name your Bucket
+    Type: String
+
 Resources:
-  MyS3Bucket: # logical ID
-    Type: 'AWS::S3::Bucket' 
+  S3Bucket:
+    Type: AWS::S3::Bucket
     Properties:
-      BucketName: jon-snow-bucket
-      Tags: # list of tags
-        - Key: CloudFormationLab
-          Value: JonSnow
+      AccessControl: Private
+      BucketName: !Ref BucketName
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
